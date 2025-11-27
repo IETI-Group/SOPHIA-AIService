@@ -1,6 +1,18 @@
 import request from 'supertest';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import app from '../src/app.js';
+
+let flag = false;
+vi.mock('../src/utils/logger.js', () => {
+  return {
+    logger: {
+      info: vi.fn(() => {
+        if (flag) throw new Error('Logger error');
+      }),
+      error: vi.fn(),
+    },
+  };
+});
 
 describe('SOPHIA AI Service API', () => {
   describe('GET /', () => {
@@ -40,11 +52,22 @@ describe('SOPHIA AI Service API', () => {
   describe('GET /nonexistent', () => {
     it('should return 404 for nonexistent routes', async () => {
       const response = await request(app).get('/nonexistent').expect(404);
-
       expect(response.body).toMatchObject({
         success: false,
         error: 'Not found - /nonexistent',
       });
+    });
+  });
+
+  describe('Health check error handling', () => {
+    it('should handle errors in health check', async () => {
+      flag = true; // Activate error throwing in logger mock
+      const response = await request(app).get('/health').expect(500);
+      expect(response.body).toMatchObject({
+        success: false,
+        message: 'Health check failed',
+      });
+      flag = false;
     });
   });
 });
