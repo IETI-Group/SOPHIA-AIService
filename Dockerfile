@@ -12,7 +12,6 @@ COPY --from=dependencies /app/node_modules ./node_modules
 ARG DATABASE_URL
 COPY . .
 ENV DATABASE_URL=${DATABASE_URL}
-RUN pnpm prisma:generate
 RUN pnpm build
 
 FROM base AS production
