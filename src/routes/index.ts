@@ -1,13 +1,19 @@
-import { Router, type IRouter } from "express";
-import healthRoutes from "./health.js";
+import { type IRouter, Router } from 'express';
 
 const router: IRouter = Router();
 
 // Rutas de la aplicación
-router.use("/health", healthRoutes);
+//router.use('/health', healthRoutes);
+/**
+ * router.use(courses);
+router.use(lessons);
+router.use(quizzes);
+router.use(assignments);
+router.use(sections);
+router.use(resources);
+router.use(tags);
+router.use(categories);
+router.use(aispecs);
 
-// Aquí se pueden agregar más rutas en el futuro
-// router.use('/users', userRoutes);
-// router.use('/auth', authRoutes);
-
+ */
 export default router;

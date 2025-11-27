@@ -1,8 +1,10 @@
-# Archivo .dockerignore para excluir archivos innecesarios
 node_modules
 npm-debug.log
 dist
+logs
+*.tsbuildinfo
 .git
+.github
 .gitignore
 README.md
 .env
@@ -16,3 +18,11 @@ coverage
 .DS_Store
 Thumbs.db
 package-lock.json
+.gitignore
+.vscode
+.idea
+test
+nodemon.json
+vitest.config.ts
+.env.example
+*.md

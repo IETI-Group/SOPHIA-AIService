@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+enum AI_STAGE_EXECUTION_STATUS {
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  SKIPPED
+}

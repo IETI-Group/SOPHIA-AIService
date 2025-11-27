@@ -1,51 +1,49 @@
-import { describe, expect, it, beforeAll, afterAll } from "vitest";
-import request from "supertest";
-import app from "../src/app.js";
+import request from 'supertest';
+import { describe, expect, it } from 'vitest';
+import app from '../src/app.js';
 
-describe("SOPHIA Learning Path Service API", () => {
-  describe("GET /", () => {
-    it("should return welcome message", async () => {
-      const response = await request(app).get("/").expect(200);
+describe('SOPHIA AI Service API', () => {
+  describe('GET /', () => {
+    it('should return welcome message', async () => {
+      const response = await request(app).get('/').expect(200);
 
       expect(response.body).toMatchObject({
         success: true,
-        message: "Welcome to SOPHIA Learning Path Service API",
-        version: "1.0.0",
+        message: 'Welcome to SOPHIA AI Service API',
         endpoints: {
-          health: "/api/v1/health",
+          health: '/health',
         },
       });
       expect(response.body.timestamp).toBeDefined();
     });
   });
 
-  describe("GET /api/v1/health", () => {
-    it("should return health status", async () => {
-      const response = await request(app).get("/api/v1/health").expect(200);
+  describe('GET /health', () => {
+    it('should return health status', async () => {
+      const response = await request(app).get('/health').expect(200);
 
       expect(response.body).toMatchObject({
         success: true,
-        message: "SOPHIA Learning Path Service is running successfully",
-        service: "sophia-learning-path-service",
-        version: "1.0.0",
+        message: 'SOPHIA AI Service is running successfully',
+        service: 'sophia-ai-service',
       });
 
       expect(response.body.timestamp).toBeDefined();
       expect(response.body.environment).toBeDefined();
       expect(response.body.uptime).toBeDefined();
       expect(response.body.memory).toBeDefined();
-      expect(response.body.memory.used).toBeTypeOf("number");
-      expect(response.body.memory.total).toBeTypeOf("number");
+      expect(response.body.memory.used).toBeTypeOf('number');
+      expect(response.body.memory.total).toBeTypeOf('number');
     });
   });
 
-  describe("GET /nonexistent", () => {
-    it("should return 404 for nonexistent routes", async () => {
-      const response = await request(app).get("/nonexistent").expect(404);
+  describe('GET /nonexistent', () => {
+    it('should return 404 for nonexistent routes', async () => {
+      const response = await request(app).get('/nonexistent').expect(404);
 
       expect(response.body).toMatchObject({
         success: false,
-        error: "Not found - /nonexistent",
+        error: 'Not found - /nonexistent',
       });
     });
   });

@@ -1,17 +1,39 @@
-FROM node:24-alpine3.21
+FROM node:lts-alpine AS base
+RUN npm install -g pnpm@10.22.0
 
-RUN npm install -g pnpm
+FROM base AS dependencies
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
+FROM base AS build
+WORKDIR /app
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY . .
+RUN pnpm prisma:generate
+RUN pnpm build
+
+FROM base AS production
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
+COPY prisma.config.ts ./
 
-RUN pnpm install --frozen-lockfile
 
-COPY . .
+COPY src/schemas/prisma ./src/schemas/prisma
 
-RUN pnpm run build
+RUN pnpm install --prod --frozen-lockfile && pnpm add -D prisma && pnpm prisma:generate
 
-EXPOSE 3000
+COPY --from=build /app/dist ./dist
 
-CMD ["pnpm", "start"]
+RUN apk add --no-cache wget
+
+ENV NODE_ENV=production
+ENV PORT=80
+
+EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:80/health || exit 1
+
+CMD ["sh", "-c", "pnpm prisma:migrate:deploy && pnpm start"]

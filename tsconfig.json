@@ -9,13 +9,19 @@
     "skipLibCheck": true,
     "outDir": "dist",
     "sourceMap": true,
-    "declaration": true,
+    "declaration": false,
     "removeComments": false,
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "."
   },
-  "include": ["src/*", "src/**/*", "test/**/*", "test"],
-  "exclude": ["node_modules", "dist", "docs", "coverage"]
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "docs",
+    "coverage",
+     "src/generated/**",
+    "**/*.generated.ts"
+  ]
 }
