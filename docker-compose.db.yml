@@ -1,20 +1,7 @@
 services:
-  app-dev:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-      target: development
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=development
-    volumes:
-      - .:/app
-      - /app/node_modules
-    command: pnpm run dev
-    restart: unless-stopped
   database-dev:
     image: postgres:15-alpine
+    container_name: sophia-ai-service-db
     environment:
       POSTGRES_DB: ${DB_NAME:-dev_db}
       POSTGRES_USER: ${DB_USER:-dev_user}
@@ -25,9 +12,11 @@ services:
       - postgres_dev_data:/var/lib/postgresql/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-dev_user}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-dev_user} -d ${DB_NAME:-dev_db} -h localhost -p 5432"]
       interval: 10s
       timeout: 5s
       retries: 5
+
+
 volumes:
   postgres_dev_data:

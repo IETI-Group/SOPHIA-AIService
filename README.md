@@ -1,8 +1,8 @@
-# SOPHIA - Learning Paths Service
+# SOPHIA - AI Paths Service
 
 ## Descripción del Proyecto
 
-El **SOPHIA Learning Paths Service** es un microservicio backend desarrollado como parte del sistema educativo SOPHIA. Este servicio está diseñado para gestionar las rutas de aprendizaje, proporcionando funcionalidades para crear, administrar y seguir el progreso de los estudiantes a través de diferentes trayectorias educativas personalizadas.
+El **SOPHIA AI Paths Service** es un microservicio backend desarrollado como parte del sistema educativo SOPHIA. Este servicio está diseñado para gestionar las rutas de aprendizaje, proporcionando funcionalidades para crear, administrar y seguir el progreso de los estudiantes a través de diferentes trayectorias educativas personalizadas.
 
 ## Descripción del Microservicio
 
@@ -50,8 +50,8 @@ Este microservicio es responsable de:
 
 1. **Clonar el repositorio**:
    ```bash
-   git clone https://github.com/IETI-Group/SOPHIA-LearningPathsService.git
-   cd SOPHIA-LearningPathsService
+   git clone https://github.com/IETI-Group/SOPHIA-AIService.git
+   cd SOPHIA-AIService
    ```
 
 2. **Instalar dependencias**:
@@ -112,8 +112,8 @@ docker-compose -f docker-compose.dev.yml up
 
 #### Producción:
 ```bash
-docker build -t sophia-learning-paths .
-docker run -p 3000:3000 sophia-learning-paths
+docker build -t sophia-AI-paths .
+docker run -p 3000:3000 sophia-AI-paths
 ```
 
 ## Estructura del Proyecto
@@ -136,9 +136,9 @@ test/                    # Tests del proyecto
 [**SOPHIA - Gestión de Proyecto**](https://trello.com/invite/b/68be127bf45c3eaecf8cc70d/ATTI6891bb77d37b8e0184327426470801ed6871D57B/sophia)
 
 Este tablero contiene:
-- 📋 **Backlog**: Lista de funcionalidades pendientes
-- 📝 **Historias de Usuario**: Requerimientos desde la perspectiva del usuario
-- 📊 **Sprint Planning**: Planificación de iteraciones
-- 👥 **Tareas Asignadas**: Distribución de trabajo entre el equipo
-- 🚀 **Estado del Desarrollo**: Progreso actual del proyecto
+- **Backlog**: Lista de funcionalidades pendientes
+- **Historias de Usuario**: Requerimientos desde la perspectiva del usuario
+- **Sprint Planning**: Planificación de iteraciones
+- **Tareas Asignadas**: Distribución de trabajo entre el equipo
+- **Estado del Desarrollo**: Progreso actual del proyecto
 
