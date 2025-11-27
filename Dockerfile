@@ -1,5 +1,5 @@
 FROM node:lts-alpine AS base
-RUN npm install -g pnpm@10.22.0
+RUN npm install -g pnpm@10.23.0
 
 FROM base AS dependencies
 WORKDIR /app
@@ -9,7 +9,9 @@ RUN pnpm install --frozen-lockfile
 FROM base AS build
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
+ARG DATABASE_URL
 COPY . .
+ENV DATABASE_URL=${DATABASE_URL}
 RUN pnpm prisma:generate
 RUN pnpm build
 
@@ -22,7 +24,7 @@ COPY prisma.config.ts ./
 
 COPY src/schemas/prisma ./src/schemas/prisma
 
-RUN pnpm install --prod --frozen-lockfile && pnpm add -D prisma && pnpm prisma:generate
+RUN pnpm install --prod --frozen-lockfile && pnpm add -D prisma
 
 COPY --from=build /app/dist ./dist
 

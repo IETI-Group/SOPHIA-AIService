@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: production
+      args:
+        - DATABASE_URL=${DATABASE_URL}
     container_name: sophia-ai-service-app
     ports:
       - ${PORT:-3001}:80

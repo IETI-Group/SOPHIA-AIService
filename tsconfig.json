@@ -7,7 +7,8 @@
     "strict": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
-    "outDir": "dist",
+    "outDir": "./dist",
+    "rootDir": "./src",
     "sourceMap": true,
     "declaration": false,
     "removeComments": false,
@@ -15,13 +16,11 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
   },
-  "include": ["src/**/*", "test/**/*"],
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules",
     "dist",
     "docs",
     "coverage",
-     "src/generated/**",
-    "**/*.generated.ts"
   ]
 }
